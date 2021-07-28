@@ -68,8 +68,11 @@ endif()
 #From Heidi: ---Define useful ROOT functions and macros (e.g. ROOT_GENERATE_DICTIONARY)
 include(${ROOT_USE_FILE})
 
-find_package(PlotUtils REQUIRED)
-include_directories(${PlotUtils_INCLUDE_DIR})
+find_package(MAT REQUIRED)
+include_directories(${MAT_INCLUDE_DIR})
+
+find_package(MAT-MINERvA REQUIRED)
+include_directories(${MAT-MINERvA_INCLUDE_DIR})
 
 #All components in this project can refer to other components by
 #relative path from the root source code directory.
