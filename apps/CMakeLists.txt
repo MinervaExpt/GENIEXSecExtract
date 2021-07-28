@@ -1,0 +1,7 @@
+add_executable(runXSecLooper_CCQENuInclusive runXSecLooper_CCQENuInclusive.cpp)
+target_link_libraries(runXSecLooper_CCQENuInclusive ${ROOT_LIBRARIES} PlotUtils GENIEXSecExtract)
+install(TARGETS runXSecLooper_CCQENuInclusive DESTINATION bin)
+
+add_executable(runCCIncForMultiNeutron runCCIncForMultiNeutron.cpp)
+target_link_libraries(runCCIncForMultiNeutron ${ROOT_LIBRARIES} PlotUtils GENIEXSecExtract GenVector)
+install(TARGETS runCCIncForMultiNeutron DESTINATION bin)
