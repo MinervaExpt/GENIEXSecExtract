@@ -65,6 +65,10 @@ if(NOT ROOT_genreflex_cmd)
   endif()
 endif()
 
+#All components in this project can refer to other components by
+#relative path from the root source code directory.
+include_directories( ${CMAKE_SOURCE_DIR} )
+
 #From Heidi: ---Define useful ROOT functions and macros (e.g. ROOT_GENERATE_DICTIONARY)
 include(${ROOT_USE_FILE})
 
@@ -73,10 +77,6 @@ include_directories(${MAT_INCLUDE_DIR})
 
 find_package(MAT-MINERvA REQUIRED)
 include_directories(${MAT-MINERvA_INCLUDE_DIR})
-
-#All components in this project can refer to other components by
-#relative path from the root source code directory.
-include_directories( ${CMAKE_SOURCE_DIR} )
 
 #From Heidi: put some special flags here forgot what the DBUILD_SHARED_LIBS=OFF does..
 add_definitions(-DFORM "-DBUILD_SHARED_LIBS=OFF")
