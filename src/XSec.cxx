@@ -363,6 +363,12 @@ double XSec::getValue(ChainWrapper& chw, int entry, XSec::EVariable var)
                 return Q2;  
 
             }  
+       case kq3:
+          {
+	    double Q2 = 1e-6*chw.GetValue("mc_Q2", entry);
+	    double Ehad = 1e-3*( chw.GetValue("mc_incomingE", entry) - chw.GetValue("mc_primFSLepton", entry, 3) );
+	    return sqrt(Q2 + (Ehad*Ehad));
+          }
         case kQ2:
             return 1e-6*chw.GetValue("mc_Q2", entry);
         case kQ2QE:
@@ -478,6 +484,21 @@ double XSec::getValue(ChainWrapper& chw, int entry, XSec::EVariable var)
             return 1e-3*chw.GetValue("mc_incomingE", entry);
         case kEHad:
             return 1e-3*( chw.GetValue("mc_incomingE", entry) - chw.GetValue("mc_primFSLepton", entry, 3) );
+        case kEAvail:
+          {
+	    double recoil = 0;
+	    int n_parts = chw.GetValue("mc_nFSPart", entry);
+	    double mass_pion = 139.57;
+	    double mass_proton = 938.27;
+	    for(int i=0;i<n_parts;i++){
+	      int pdg = chw.GetValue("mc_FSPartPDG",entry,i);
+	      if(pdg == 22) recoil+=chw.GetValue("mc_FSPartE",entry,i);//total energy             
+	      if(pdg == 211 || pdg == -211) recoil+=chw.GetValue("mc_FSPartE",entry,i)-mass_pion;//kinetic                                                                                             
+	      if(pdg == 111) recoil+=chw.GetValue("mc_FSPartE",entry,i);//total energy            
+	      if(pdg == 2212) recoil+=chw.GetValue("mc_FSPartE",entry,i)-mass_proton;//kinetic    
+	    }
+	    return 1e-3*recoil;
+          }
         case kTLep:
             {
                 const double Elep=1e-3*chw.GetValue("mc_primFSLepton", entry, 3);

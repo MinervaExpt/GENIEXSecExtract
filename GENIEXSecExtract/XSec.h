@@ -49,6 +49,7 @@ public:
     ky,                // true y
     kW,                // true W
     kExpW,             // true experimental W
+    kq3,
     kQ2,               // true Q^2
     kExpQ2,            // true experimental Q^2
     kQ2QE,             // Q^2 based on lepton kinematics, CCQE assumption
@@ -61,6 +62,7 @@ public:
     kPLep,              // Muon momentum 
     kENu,              // True neutrino energy - use this for total cross sections vs Enu
     kEHad,             // True neutrino energy minus true lepton energy (our definition of Ehad)
+    kEAvail,
     kPTLep,             // Muon Transverse Momentum
     kPZLep,             // Muon Z Momentum
     kPTLepSquare,       // Muon Transverse Momentum Square
