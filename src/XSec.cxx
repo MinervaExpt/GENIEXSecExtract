@@ -563,7 +563,7 @@ double XSec::getValue(ChainWrapper& chw, int entry, XSec::EVariable var)
 		//recoil value
 		double recoil = 0;
 		int n_parts = chw.GetValue("mc_nFSPart", entry);
-		double mass_pion = 135;
+		double mass_pion = 139.57;
 		double mass_proton = 938.27;
 		for(int i=0;i<n_parts;i++){
 		  int pdg = chw.GetValue("mc_FSPartPDG",entry,i);
