@@ -72,8 +72,9 @@ public:
       else if(PDGCode == 2212) E_avail += energy - 938.28;
       else if(PDGCode == 111) E_avail += energy;
       else if(PDGCode == 22) E_avail += energy;
+      else if(abs(PDGCode) == 321) E_avail += energy; //Charged kaon
       else if(PDGCode == 2112 && energy - 939.6 > neutronKEThreshold) ++nNeutrons;
-      //Implicitly exclude neutrons, nuclei, kaons, and heavy baryons
+      //Implicitly exclude neutrons, nuclei, and heavy baryons
     }
 
     if(nNeutrons < 2) return false;
@@ -126,8 +127,8 @@ int runXSecLooper(const bool antinu, const double EAvailMax, const double Emin, 
   loop.setFiducial(5890, 8467);
   loop.setPlaylist(PlotUtils::FluxReweighter::minervame6A);
 
-  const int nBins=22;
-  double bins[nBins+1]={0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0, 1.5, 2.0, 2.5};
+  const int nBins=9;
+  double bins[nBins+1]={0, 0.24, 0.31, 0.4, 0.5, 0.62, 0.77, 0.95, 1.18, 1.5};
 
   CCIncXSec* CCMultiNeutrons=new CCIncXSec(TString::Format("cc_NeutronMultiplicity"), EAvailMax);
   CCMultiNeutrons->setVariable(XSec::kPTLep);

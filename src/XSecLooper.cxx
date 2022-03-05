@@ -373,11 +373,11 @@ void XSecLooper::runLoop(int entries, const int fsitarget)
     
     //This fluxreweighter matters which one you pick. There needs to be some sort of external way to decide whether you want a wiggle and what playlist you want... --Anne
     bool useNuEConstraint = true; //The old default behavior
-    if(*m_nuPDGs.begin() < 0)
+    /*if(*m_nuPDGs.begin() < 0)
     {
       std::cerr << "Disabling the nu-e flux constraint because it wasn't officially ready for antineutrino analyses as of May 2021.  Remove line ~379-383 of XSecLooper.cxx when it's ready!\n";
       useNuEConstraint = false;
-    }
+    }*/
     FluxReweighter* fluxReweighter = new FluxReweighter( *m_nuPDGs.begin(), useNuEConstraint, m_playlist, FluxReweighter::gen2thin, FluxReweighter::g4numiv6 );
     
     //std::ofstream fout("/scratch/minerva/jwolcott/geniexsecextract_vals.txt");
