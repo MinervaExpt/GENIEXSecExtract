@@ -492,17 +492,23 @@ double XSec::getValue(ChainWrapper& chw, int entry, XSec::EVariable var)
 	    double mass_proton = 938.27;
 	    for(int i=0;i<n_parts;i++){
 	      int pdg = chw.GetValue("mc_FSPartPDG",entry,i);
-	      if(pdg == 22) recoil+=chw.GetValue("mc_FSPartE",entry,i);//total energy             
-	      if(pdg == 211 || pdg == -211) recoil+=chw.GetValue("mc_FSPartE",entry,i)-mass_pion;//kinetic
-	      if(pdg == 111) recoil+=chw.GetValue("mc_FSPartE",entry,i);//total energy            
-	      if(pdg == 2212) recoil+=chw.GetValue("mc_FSPartE",entry,i)-mass_proton;//kinetic 
-        if (pdg>1000000000) {// neucleons and GENIE pseudo particles
+	      if(pdg == 22) {
+          recoil+=chw.GetValue("mc_FSPartE",entry,i);//total energy
+        } else if (pdg == 211 || pdg == -211) {
+          recoil+=chw.GetValue("mc_FSPartE",entry,i)-mass_pion;//kinetic 
+        } else if (pdg == 111) {
+          recoil+=chw.GetValue("mc_FSPartE",entry,i);//total energy             
+        } else if(pdg == 2212) {
+          recoil+=chw.GetValue("mc_FSPartE",entry,i)-mass_proton;//kinetic  
+        } else if (pdg>1000000000) {// neucleons and GENIE pseudo particles
           // do nothing, assume negligible energy for nucleons
           // save me the trouble of asking what that nucleon's mass was.
         } else if (pdg>=2000) {//primarily strange baryons 3122s
           recoil+=chw.GetValue("mc_FSPartE",entry,i)-mass_proton;
         } else if (pdg<-2000) {//primarily anti-baryons -2112 and -2212s,
           recoil+=chw.GetValue("mc_FSPartE",entry,i)+mass_proton;
+        } else if (abs(pdg)==11 || abs(pdg)==13) {
+          // do nothing. Don't include charged lepton
         } else {//primarily kaons and eta mesons.
           recoil+=chw.GetValue("mc_FSPartE",entry,i);
         }
