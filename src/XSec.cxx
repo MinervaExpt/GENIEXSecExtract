@@ -504,7 +504,7 @@ double XSec::getValue(ChainWrapper& chw, int entry, XSec::EVariable var)
         } else if (pdg<-2000) {//primarily anti-baryons -2112 and -2212s,
           recoil+=chw.GetValue("mc_FSPartE",entry,i)+mass_proton;
         } else {//primarily kaons and eta mesons.
-          recoil+=chw.GetValue("mc_FSPartE",entry,i)
+          recoil+=chw.GetValue("mc_FSPartE",entry,i);
         }
 	    }
 	    return 1e-3*recoil;
