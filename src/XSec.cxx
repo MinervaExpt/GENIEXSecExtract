@@ -494,12 +494,16 @@ double XSec::getValue(ChainWrapper& chw, int entry, XSec::EVariable var)
 	      int pdg = chw.GetValue("mc_FSPartPDG",entry,i);
 	      if(pdg == 22) {
           recoil+=chw.GetValue("mc_FSPartE",entry,i);//total energy
+        } else if (abs(pdg)==11 || abs(pdg)==13) {
+          // do nothing. don't count charged lepton
         } else if (pdg == 211 || pdg == -211) {
           recoil+=chw.GetValue("mc_FSPartE",entry,i)-mass_pion;//kinetic 
         } else if (pdg == 111) {
           recoil+=chw.GetValue("mc_FSPartE",entry,i);//total energy             
         } else if(pdg == 2212) {
-          recoil+=chw.GetValue("mc_FSPartE",entry,i)-mass_proton;//kinetic  
+          recoil+=chw.GetValue("mc_FSPartE",entry,i)-mass_proton;//kinetic
+        } else if (pdg==2112) {
+          // do nothing. don't count neutron.
         } else if (pdg>1000000000) {// neucleons and GENIE pseudo particles
           // do nothing, assume negligible energy for nucleons
           // save me the trouble of asking what that nucleon's mass was.
@@ -507,13 +511,11 @@ double XSec::getValue(ChainWrapper& chw, int entry, XSec::EVariable var)
           recoil+=chw.GetValue("mc_FSPartE",entry,i)-mass_proton;
         } else if (pdg<-2000) {//primarily anti-baryons -2112 and -2212s,
           recoil+=chw.GetValue("mc_FSPartE",entry,i)+mass_proton;
-        } else if (abs(pdg)==11 || abs(pdg)==13) {
-          // do nothing. Don't include charged lepton
         } else {//primarily kaons and eta mesons.
           recoil+=chw.GetValue("mc_FSPartE",entry,i);
         }
 	    }
-	    return 1e-3*recoil;
+	    return max(0.0,1e-3*recoil);
           }
         case kTLep:
             {
@@ -551,7 +553,6 @@ double XSec::getValue(ChainWrapper& chw, int entry, XSec::EVariable var)
                 const double numi_beam_angle_rad = -0.05887; // Taken from MinervaPhysicalConstants.h
                 double pyp = -1.0 *sin( numi_beam_angle_rad )*pz + cos( numi_beam_angle_rad )*py;
                 double pt   = sqrt( pow(px,2) +pow(pyp,2) );
-
                 return 1.0e-3*pt; //GeV
             }
         case kPZLep:
