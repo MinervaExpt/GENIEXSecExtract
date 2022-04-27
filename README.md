@@ -3,8 +3,8 @@ Closure test programs for MINERvA analyses.  This is how you check that your eve
 
 In your working area opt directory:
 
-mkdir buildGENIEXSecExtract
+`mkdir buildGENIEXSecExtract
 cd buildGENIEXSecExtract
-cmake ../../GENIEXSecExtract -DCMAKE_INSTALL_PREFIX=`pwd`/.. -DCMAKE_BUILD_TYPE=Release
+cmake ../../GENIEXSecExtract -DCMAKE_INSTALL_PREFIX=`pwd`/.. -DCMAKE_BUILD_TYPE=Release`
 
 This builds the GENIE extraction package to be used by your analysis. 
