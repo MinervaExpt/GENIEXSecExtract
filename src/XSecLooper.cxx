@@ -879,9 +879,9 @@ void XSecLooper::normalizeEnuHist(PlotUtils::MnvH1D* h)
     FluxReweighter* fluxReweighter = new FluxReweighter( 14, false, m_playlist, FluxReweighter::gen2thin, FluxReweighter::g4numiv6 );
   
 
-    MnvH1D* flux = (MnvH1D*)getFluxHist();
+    TH1D* flux = (TH1D*)getFluxHist();
 
-    MnvH1D* hFluxrebin = fluxReweighter->GetRebinnedFluxReweighted_FromInputFlux(flux, h);
+    MnvH1D* hFluxrebin = (MnvH1D*)fluxReweighter->GetRebinnedFluxReweighted_FromInputFlux(flux, h);
    // hFluxrebin->SaveAs("Rebinned_Flux_XSecLooper_FluxReweighter.root");
 //    hFluxrebin->SaveAs("flux_for_normalization.root");
     h->DivideSingle( h, hFluxrebin );
