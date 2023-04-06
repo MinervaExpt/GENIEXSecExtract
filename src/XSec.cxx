@@ -369,6 +369,27 @@ double XSec::getValue(ChainWrapper& chw, int entry, XSec::EVariable var)
 	    double Ehad = 1e-3*( chw.GetValue("mc_incomingE", entry) - chw.GetValue("mc_primFSLepton", entry, 3) );
 	    return sqrt(Q2 + (Ehad*Ehad));
           }
+    case kq3LowRecoil:
+      {
+	double E_nu = 1e-3*chw.GetValue("mc_incomingE", entry);
+        double E_lep = 1e-3*chw.GetValue("mc_primFSLepton", entry, 3);
+        double q0 = E_nu - E_lep;
+
+        // get the lepton and calculate theta, P                    
+        const double muonpx = chw.GetValue("mc_primFSLepton", entry, 0);
+        const double muonpy = chw.GetValue("mc_primFSLepton", entry, 1);
+        const double muonpz = chw.GetValue("mc_primFSLepton", entry, 2);
+
+        TVector3 muonfullp(muonpx, muonpy, muonpz);
+        muonfullp *= 1E-3;//MeV to GeV         
+
+        double p_lep = muonfullp.Mag();
+        double theta_lep = chw.GetValue("truth_muon_theta", entry);
+        double mass_square = E_lep*E_lep  - p_lep*p_lep;
+        double Q2 = 2*E_nu*(E_lep - p_lep * std::cos(theta_lep)) - mass_square;
+        Q2 = std::max(0.,Q2);
+        return sqrt(Q2 + (q0*q0));
+      }
         case kQ2:
             return 1e-6*chw.GetValue("mc_Q2", entry);
         case kQ2QE:

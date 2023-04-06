@@ -50,6 +50,7 @@ public:
     kW,                // true W
     kExpW,             // true experimental W
     kq3,
+    kq3LowRecoil,      // uses a different Q^2 calculation
     kQ2,               // true Q^2
     kExpQ2,            // true experimental Q^2
     kQ2QE,             // Q^2 based on lepton kinematics, CCQE assumption
