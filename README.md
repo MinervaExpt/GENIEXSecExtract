@@ -1,6 +1,8 @@
 # GENIEXSecExtract
 Closure test programs for MINERvA analyses.  This is how you check that your event loop is self-consistent enough for unfolding.
 
+`` git clone https://github.com/MinervaExpt/GENIEXSecExtract.git  ``
+
 In your working area opt directory:
 1. Make a build dir for this package
 ``mkdir buildGENIEXSecExtract ``
