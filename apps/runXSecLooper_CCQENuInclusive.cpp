@@ -17,7 +17,7 @@ public:
   {
   };
 
-bool isQELikeSignal( ChainWrapper& chw, int entry ) {
+bool isQELikeSignal( PlotUtils::ChainWrapper& chw, int entry ) {
 
   int genie_n_muons         = 0;
   int genie_n_mesons        = 0;
@@ -63,7 +63,7 @@ bool isQELikeSignal( ChainWrapper& chw, int entry ) {
 }
   // Override this method from the base class to decide what events to
   // include in this selection
-  virtual bool passesCuts(ChainWrapper& chw, int entry)
+  virtual bool passesCuts(PlotUtils::ChainWrapper& chw, int entry)
   {
     if((int)chw.GetValue("mc_incoming", entry)!=14) return false;
     if((int)chw.GetValue("mc_current", entry)!=1) return false;
@@ -96,9 +96,9 @@ void runMinModDepCCQEXSec()
   double pz_edges[] = { 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 6.0, 8.0, 10.0, 15.0, 20.0 };
   int pz_nbins = 12;
  
-  vector<double> recoil3Dbins;
-  vector<double> pt3Dbins;
-  vector<double> pz3Dbins;
+  std::vector<double> recoil3Dbins;
+  std::vector<double> pt3Dbins;
+  std::vector<double> pz3Dbins;
 
   pt3Dbins.push_back(0.0);
   //  pt3Dbins.push_back(0.075);//added ME
@@ -124,7 +124,7 @@ void runMinModDepCCQEXSec()
   full3D.push_back(pt3Dbins);
   full3D.push_back(pz3Dbins);
 
-  cout << pt3Dbins.size() << endl;
+  std::cout << pt3Dbins.size() << std::endl;
   int pzrecoil_nbins = (recoil3Dbins.size()+1)*(pz3Dbins.size()+1);
   double pzrecoil_edges[pzrecoil_nbins];
   double pt3D_edges[7];
@@ -156,7 +156,7 @@ void runMinModDepCCQEXSec()
   loop.runLoop();
 
   // Get the output histograms and save them to file
-  string geniefilename =  "GENIEXSECEXTRACT_CCQENuInclusive_me1L.root";
+  std::string geniefilename =  "GENIEXSECEXTRACT_CCQENuInclusive_me1L.root";
   TFile fout(geniefilename.c_str(), "RECREATE");
   for(uint i=0; i<loop.getXSecs().size(); ++i){
     if(loop.getXSecs()[i]->getDimension()==1){ 

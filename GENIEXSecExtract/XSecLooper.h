@@ -13,7 +13,7 @@ class MnvH2D;
 #include "TSpline.h"
 #include "TVector3.h"
 
-#include "ChainWrapper.h"
+#include "PlotUtils/ChainWrapper.h"
 #include <vector>
 #include <set>
 
@@ -143,7 +143,7 @@ public:
   void GetFSParticles( int& pionindex, int& protonid, const int entry ) const;
   bool IsMuonCollinear(const TVector3 selectedp, const int entry) const;
   bool IsScaled(const TVector3 selectedp, const TVector3 primaryproton) const;
-  static string FSIName(const int imode);
+  static std::string FSIName(const int imode);
   void PrintProton(const int fsitype, int & kprint, const int entry, const int protonindex, const int it_primary_proton) const;
   int FSIType(const int entry, const int protonindex) const;
 
@@ -222,15 +222,15 @@ protected:
   // Is the event in your fiducial volume?  If you need a
   // different fiducial volume, subclass XSecLooper and override this
   // Default is to use isFiducialTracker.
-  virtual bool isFiducial(ChainWrapper& chw, int entry);
+  virtual bool isFiducial(PlotUtils::ChainWrapper& chw, int entry);
   //=================================
   // functions for flux normalization
   //=================================
   // Is this event used for the normalization histogram?
-  virtual bool isCCRateEvent(ChainWrapper& chw, int entry);
+  virtual bool isCCRateEvent(PlotUtils::ChainWrapper& chw, int entry);
   // Is the event in the tracker fiducial volume?
   // Used for total event rate calcuclation and normalization.
-  virtual bool isFiducialTracker(ChainWrapper& chw, int entry);
+  virtual bool isFiducialTracker(PlotUtils::ChainWrapper& chw, int entry);
   // Get the total CC cross section on carbon spline from the GENIE file
   virtual TGraph* getCCSpline(int pdg);
   // Take a number of events vs Enu histogram and divide out the flux
@@ -245,12 +245,12 @@ protected:
   void divideBinsByWidth(PlotUtils::MnvH2D* h);
 
   // Are you applying any additional weight to the CV (in addition to the standard cv weight)
-  virtual double getSignalWeight(ChainWrapper & chw, int entry);
+  virtual double getSignalWeight(PlotUtils::ChainWrapper & chw, int entry);
   //Vector of weights coming from GENIE
-  std::vector<double> getGenV(ChainWrapper & chw, int entry);
+  std::vector<double> getGenV(PlotUtils::ChainWrapper & chw, int entry);
 
   std::vector<XSec*> m_xsecs; // The cross sections we're dealing with
-  ChainWrapper* m_chw;        // The ChainWrapper for the truth chain
+  PlotUtils::ChainWrapper* m_chw;        // The ChainWrapper for the truth chain
   std::map<int, PlotUtils::MnvH1D*> m_ccRateHists;      // The number of CC events on carbon histogram
   TH1D* m_fluxHist;           // The flux histogram (flux*NC12*pot)
   std::set<int> m_nuPDGs;     // PDG code(s) for the neutrino type we care about

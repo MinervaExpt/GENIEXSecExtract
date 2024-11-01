@@ -32,7 +32,7 @@ public:
     : XSec(name), m_max_E_avail(maxEAvail)
     {}
 
-  bool passesMuKinematics(ChainWrapper& chw, int entry)
+  bool passesMuKinematics(PlotUtils::ChainWrapper& chw, int entry)
   {
     ROOT::Math::AxisAngle toBeamFrame(ROOT::Math::XYZVector(1., 0., 0.), -0.05887); //NuMI beam angle in mrad from PlotUtils
     ROOT::Math::XYZVector muon(chw.GetValue("mc_primFSLepton", entry, 0), //In MeV
@@ -55,7 +55,7 @@ public:
     return true;
   }
 
-  virtual bool passesCuts(ChainWrapper& chw, int entry)
+  virtual bool passesCuts(PlotUtils::ChainWrapper& chw, int entry)
   {
     //2+ neutrons above KE threshold
     const double neutronKEThreshold = 10; //MeV

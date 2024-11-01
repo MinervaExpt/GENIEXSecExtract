@@ -1,6 +1,6 @@
 #include "GENIEXSecExtract/XSecLooper.h"
 
-#include "GENIEXSecExtract/ChainWrapper.h"
+#include "PlotUtils/ChainWrapper.h"
 #include "GENIEXSecExtract/XSec.h"
 
 #include "TH1D.h"
@@ -45,7 +45,7 @@ m_useFiducialBranch(true), m_playlist(FluxReweighter::minervame1D)
     
     //setup CV weighting infrastructure
     char *mparalocation = std::getenv("MPARAMFILESROOT");
-    string directory_data = string(mparalocation)+"/data/Reweight/";
+    std::string directory_data = std::string(mparalocation)+"/data/Reweight/";
     weight_cv_2p2h= new weight_2p2h(directory_data+"/fit-mec-2d-noScaleDown-penalty00300-best-fit");
     weight_cv_and_var_RPA = new weightRPA(directory_data+"/outNievesRPAratio-nu12C-20GeV-20170202.root");
 }
@@ -65,7 +65,7 @@ void XSecLooper::addFiles(const char* inputFileGlob)
         cout<<"XSecLooper::addFiles list: "<<inputFileGlob<<endl;
         
         int nfile=0;
-        string line;
+        std::string line;
         while( !infile.eof() ) {
             infile >> line;
             if(line==""){ continue;}
@@ -224,7 +224,7 @@ bool XSecLooper::IsScaled(const TVector3 selectedp, const TVector3 primaryproton
     return fabs(fabs(costheta)-1)<epsilon;
 }
 
-string XSecLooper::FSIName(const int imode)
+std::string XSecLooper::FSIName(const int imode)
 {
     if(imode<0){
         return "Default";
