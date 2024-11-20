@@ -1,7 +1,7 @@
 #ifndef XSEC_H
 #define XSEC_H
 
-#include "ChainWrapper.h"
+#include "PlotUtils/ChainWrapper.h"
 
 #include <string>
 #include <vector>
@@ -92,7 +92,7 @@ public:
 
   // Does the event pass the selection to contribute to this cross
   // section? Override in your derived class
-  virtual bool passesCuts(ChainWrapper& chw, int entry)=0;
+  virtual bool passesCuts(PlotUtils::ChainWrapper& chw, int entry)=0;
 
   // Set the binning for the output histogram to be nbins equal-sized
   // bins between xmin and xmax
@@ -110,9 +110,9 @@ public:
   // Get the value of the variable that we're using for the given
   // entry in the chain(wrapper). Override this if you want to use a
   // variable that isn't defined in EVariable above
-  virtual double getVariableValue(ChainWrapper& chw, int entry);
+  virtual double getVariableValue(PlotUtils::ChainWrapper& chw, int entry);
   // If working in 2 dimensions, return a vector with both values
-  virtual std::vector<double> getVariableValues(ChainWrapper& chw, int entry);
+  virtual std::vector<double> getVariableValues(PlotUtils::ChainWrapper& chw, int entry);
 
 
   // Get the histogram of the cross section. Will be wrong if called
@@ -160,7 +160,7 @@ public:
   static Double_t NeutronMass(){ return 939.565/1e3;}//in GeV //wiki
   static Double_t MuonMass(){ return 105.65837/1e3; }//in GeV //google = wiki
 
-  static int GetProtonIndex(ChainWrapper& chw, const int entry);
+  static int GetProtonIndex(PlotUtils::ChainWrapper& chw, const int entry);
   //get theta angle wrt beam, where x, y, z in detector coordinate
   static double getTheta( double x, double y, double z );
 
@@ -168,7 +168,7 @@ public:
   static double proton_momentum_minCut(){ return   450.0;}
   static double proton_momentum_MAXCut(){ return  1200.0;}
   // Set HyperDim
-  void setHyperDim(vector< vector <double> > vec, int type){m_HyperDim = new PlotUtils::HyperDimLinearizer(vec,type);}
+  void setHyperDim(std::vector< std::vector <double> > vec, int type){m_HyperDim = new PlotUtils::HyperDimLinearizer(vec,type);}
 protected:
 
     // DC: Added 26/07/18  
@@ -181,10 +181,10 @@ protected:
 
   // Get a list of PDG codes for all the particles in the final state,
   // for entry number 'entry' in the chain(wrapper).
-  std::vector<int> getFSPDGs(ChainWrapper& chw, int entry);
+  std::vector<int> getFSPDGs(PlotUtils::ChainWrapper& chw, int entry);
 
   // Get the value of variable 'var' in entry in the chain
-  double getValue(ChainWrapper& chw, int entry, XSec::EVariable var);
+  double getValue(PlotUtils::ChainWrapper& chw, int entry, XSec::EVariable var);
 
   std::string m_name;       // Name of the cross section
   PlotUtils::MnvH1D* m_xsecHist;          // The output cross section histogram

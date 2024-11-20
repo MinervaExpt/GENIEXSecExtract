@@ -23,7 +23,7 @@ public:
     : XSec(name),  m_intType(intType), m_carbonOnly(carbonOnly), m_PDGCode(PDGCode)
     {}
 
-  bool passesLeptonKinematics(ChainWrapper& chw, int entry)
+  bool passesLeptonKinematics(PlotUtils::ChainWrapper& chw, int entry)
   {
     //const double thetamu=chw.GetValue("truth_muon_theta", entry);
     //if(thetamu>20.*TMath::Pi()/180) return false;
@@ -35,7 +35,7 @@ public:
     return true;
   }
 
-  virtual bool passesCuts(ChainWrapper& chw, int entry)
+  virtual bool passesCuts(PlotUtils::ChainWrapper& chw, int entry)
   {
     // if ((int)chw.GetValue("mc_primaryLepton", entry) != 11)
     //   return false;
@@ -93,12 +93,12 @@ public:
       return targetNProtons==2;
     }
     default:
-      cout << "Unknown int type " << m_intType << endl;
+      std::cout << "Unknown int type " << m_intType << std::endl;
       exit(1);
     }
   }
 
- // std::vector<double> getVariableValues(ChainWrapper& chw, int entry)
+ // std::vector<double> getVariableValues(PlotUtils::ChainWrapper& chw, int entry)
  //  {
 
  //    std::vector<double> ret;
@@ -159,7 +159,7 @@ public:
     setFiducial(5980,8422);
   }
 
-  virtual double getPionWeight(ChainWrapper& chw, int entry)
+  virtual double getPionWeight(PlotUtils::ChainWrapper& chw, int entry)
   {
     if(!m_doPionWeight) return 1;
 
@@ -179,7 +179,7 @@ public:
     return rvn1piWeight*brandonWeight*cohWeight;
   }
 
-  virtual double getRPAWeight(ChainWrapper& chw, int entry)
+  virtual double getRPAWeight(PlotUtils::ChainWrapper& chw, int entry)
   {
     if(!m_doRPA) return 1;
 
@@ -217,7 +217,7 @@ public:
     return thisrwtemp;
   }
 
-  virtual double getSignalWeight(ChainWrapper& chw, int entry)
+  virtual double getSignalWeight(PlotUtils::ChainWrapper& chw, int entry)
   {
     return 1.0;//getPionWeight(chw, entry)*getRPAWeight(chw, entry);
   }
