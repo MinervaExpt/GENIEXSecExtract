@@ -776,7 +776,7 @@ TH1* XSecLooper::getFluxHist()
         {
             ss.str("");
             ss << it_graph->first;
-            grCCSpline.insert( std::make_pair(it_graph->first, new TF1( ("f1gcc" + ss.str()).c_str(), it_graph->second, 0, 120, 0, "GraphSpline" )) );
+	    grCCSpline.insert( std::make_pair(it_graph->first, new TF1( ("f1gcc" + ss.str()).c_str(), *it_graph->second, 0, 120, 0 )) );
         }
         
         double totRate = 0, totSpInt = 0, totFlux=0;
